@@ -139,8 +139,3 @@ vim.keymap.set("n", "<leader>r", function()
 		print("Unknown file type: " .. ext)
 	end
 end, { desc = "Run Code (Smart Detect)" })
-
--- ==========================================
--- [ PLUGINS ]
--- ==========================================
-map("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle File Explorer" })

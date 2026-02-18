@@ -32,7 +32,7 @@ return {
 		},
 		keys = {
 			{ "<leader>lg", "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
-			vim.keymap.set("n", "<leader>gb", ":Gitsigns toggle_current_line_blame<CR>", { desc = "Toggle Git Blame" }),
+			{ "<leader>gb", ":Gitsigns toggle_current_line_blame<CR>", desc = "Toggle Git Blame" },
 		},
 	},
 }

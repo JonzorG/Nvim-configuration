@@ -38,8 +38,6 @@ return {
 			return centered
 		end
 
-		-- LOAD ART FROM FILES
-		-- Change these filenames to swap logos
 		local selected_header = read_ascii("header_2.txt")
 		local selected_logo = read_ascii("logo_bear.txt")
 

@@ -16,7 +16,6 @@ return {
 			},
 		})
 
-		-- manual command to format with <leader>mp (Make Pretty)
 		vim.keymap.set({ "n", "v" }, "<leader>mp", function()
 			conform.format({
 				lsp_fallback = true,

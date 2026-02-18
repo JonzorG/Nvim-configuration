@@ -1,5 +1,2 @@
 2026-02-16
 Debugger
-
-2026-02-18
-Oil.nvim (Create/delete files)

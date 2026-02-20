@@ -33,9 +33,6 @@ map({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to System Clipboard" })
 -- Open floating message for the error on current line
 map("n", "<leader>d", vim.diagnostic.open_float, { desc = "Show Line Diagnostics" })
 
--- Open the list of all errors in the file
-map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Show All Diagnostics" })
-
 -- ==========================================
 -- [ TELESCOPE ] SEARCH & FIND
 -- ==========================================
@@ -49,6 +46,11 @@ map("n", "<leader>ff", tel("find_files"), { desc = "Find Files (Root)" })
 map("n", "<leader>fg", tel("live_grep"), { desc = "Search Text (Grep)" })
 map("n", "<leader>fb", tel("buffers"), { desc = "Find Open Buffers" })
 -- [ TELESCOPE ] EXTRA TOOLS
+map("n", "z=", function()
+	require("telescope.builtin").spell_suggest(require("telescope.themes").get_cursor({
+		initial_mode = "normal",
+	}))
+end, { desc = "Spell Suggestions (Cursor Popup)" })
 map("n", "<leader>sr", function()
 	require("telescope.builtin").registers({ initial_mode = "normal" })
 end, { desc = "Search Registers" })
@@ -58,6 +60,12 @@ map("n", "<leader>sd", function()
 end, { desc = "Search Diagnostics" })
 map("n", "<leader>sk", tel("keymaps"), { desc = "Search Keymaps" })
 
+vim.keymap.set(
+	"n",
+	"<F2>",
+	[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+	{ desc = "Rename symbol in current file" }
+)
 -- Custom: Search inside .config folder
 map("n", "<leader>fc", function()
 	require("telescope.builtin").find_files({ cwd = os.getenv("HOME") .. "/.config/nvim" })

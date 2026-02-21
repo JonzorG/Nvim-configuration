@@ -8,6 +8,7 @@ vim.g.maplocalleader = " "
 require("core.options")
 require("core.autocmds")
 require("core.keymaps")
+require("core.compiler")
 
 -- 2. Bootstrap Lazy (Plugin Manager)
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

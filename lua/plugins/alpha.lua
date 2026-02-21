@@ -56,5 +56,14 @@ return {
 		dashboard.section.footer.val = {}
 
 		require("alpha").setup(dashboard.config)
+		require("alpha").setup(dashboard.config)
+
+		-- Edge Case Fix: Prevent Enter key from crashing the empty dashboard
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = "alpha",
+			callback = function()
+				vim.keymap.set("n", "<CR>", "<Nop>", { buffer = true })
+			end,
+		})
 	end,
 }

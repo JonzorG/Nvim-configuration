@@ -1,5 +1,2 @@
 2026-02-16
 Debugger
-
-2026-02-21
-Faster spellchecking. List of wrong words and then iterate trough all of them.

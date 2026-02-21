@@ -11,3 +11,6 @@ CPUs
 unbuffered
 DMA
 inode
+SQl
+nvim
+ctrl

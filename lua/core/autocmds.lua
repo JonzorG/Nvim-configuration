@@ -18,6 +18,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 		vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#E0AF68", bold = true })
 		vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#51B3EC", bold = true })
 		vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ffffff", bold = true })
+
+		vim.api.nvim_set_hl(0, "Folded", { bg = "NONE", fg = "#565f89", italic = true })
 	end,
 })
 

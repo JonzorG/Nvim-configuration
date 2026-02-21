@@ -76,6 +76,9 @@ map("n", "<leader>fr", function()
 	require("telescope.builtin").find_files({ cwd = os.getenv("HOME") .. "/Documents" })
 end, { desc = "Search Home Directory" })
 
+-- Toggle Database UI Drawer
+vim.keymap.set("n", "<leader>db", "<cmd>DBUIToggle<CR>", { desc = "Toggle DB UI" })
+
 -- ==========================================
 -- [ COMPILER ] RUN CODE & OPTIMIZATION
 -- ==========================================

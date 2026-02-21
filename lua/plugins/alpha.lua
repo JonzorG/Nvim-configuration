@@ -38,7 +38,7 @@ return {
 			return centered
 		end
 
-		local selected_header = read_ascii("header_2.txt")
+		local selected_header = read_ascii("header_1.txt")
 		local selected_logo = read_ascii("logo_bear.txt")
 
 		local header_width = get_max_width(selected_header)

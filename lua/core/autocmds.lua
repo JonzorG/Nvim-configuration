@@ -55,12 +55,3 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		vim.api.nvim_buf_delete(0, {})
 	end,
 })
-
--- Automatically activate .venv if it exists in the current directory
-local venv_path = vim.fn.getcwd() .. "/.venv"
-if vim.fn.isdirectory(venv_path) == 1 then
-	-- 1. Set the VIRTUAL_ENV environment variable
-	vim.env.VIRTUAL_ENV = venv_path
-	-- 2. Update the PATH so Neovim finds the correct 'python' and 'pip'
-	vim.env.PATH = venv_path .. "/bin:" .. vim.env.PATH
-end

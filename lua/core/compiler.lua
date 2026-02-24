@@ -5,71 +5,76 @@ local map = vim.keymap.set
 
 _G.current_optimization_level = "-O3"
 
--- Toggle Optimization
+-- Toggle Optimization (-O2 for debugging, -O3 for heavy simulations)
 map("n", "<leader>o", function()
 	if _G.current_optimization_level == "-O3" then
 		_G.current_optimization_level = "-O2"
-		print("Switched to SCHOOL MODE (-O2)")
+		print("Switched to DEBUG MODE (-O2)")
 	else
 		_G.current_optimization_level = "-O3"
 		print("Switched to SPEED MODE (-O3)")
 	end
 end, { desc = "Compiler: Toggle Optimization (-O2/-O3)" })
 
--- Smart Run: Compiles generic projects or runs scripts
+-- Smart Run: Prioritizes Project Makefiles > Single File Fallback
 map("n", "<leader>r", function()
-	-- GUARD CLAUSE 1: Prevent running on menus, dashboards, or Oil buffers
+	-- GUARD CLAUSE: Prevent running on menus, dashboards, or empty buffers
 	if vim.bo.buftype ~= "" then
 		vim.notify("Not a runnable file.", vim.log.levels.WARN)
 		return
 	end
 
-	-- GUARD CLAUSE 2: Prevent running on completely empty/unsaved new files
-	if vim.fn.expand("%") == "" then
+	local absolute_path = vim.fn.expand("%:p")
+	if absolute_path == "" then
 		vim.notify("Please save the file first!", vim.log.levels.ERROR)
 		return
 	end
 
-	vim.cmd("w") -- Save file first
-	local file = vim.fn.expand("%")
-	local name = vim.fn.expand("%:r")
+	vim.cmd("w") -- Always save the current file before running
+	local name = vim.fn.expand("%:p:r")
 	local ext = vim.fn.expand("%:e")
 
-	if ext == "py" then
-		vim.cmd("split | term python3 " .. file)
-	elseif ext == "c" or ext == "cpp" then
+	-- PRIORITY 1: Smart Project Detection (Makefile)
+	-- Searches upwards from the current file's directory to find a Makefile
+	local make_file = vim.fs.find("Makefile", { upward = true, path = vim.fn.expand("%:p:h") })[1]
+	if make_file then
+		local project_root = vim.fn.fnamemodify(make_file, ":h")
 		local cmd = ""
-		if vim.fn.filereadable("Makefile") == 1 then
-			cmd = "make && ./main"
-		else
-			local compiler = (ext == "cpp") and "g++" or "gcc"
-			local src_files = (ext == "cpp") and "*.cpp" or "*.c"
-			local flags = _G.current_optimization_level .. " -Wall -Wextra"
-			local libs = "-lm"
 
-			local lines = vim.api.nvim_buf_get_lines(0, 0, 50, false)
-			for _, line in ipairs(lines) do
-				if line:match("gmp.h") then
-					libs = libs .. " -lgmp"
-				end
-				if line:match("pthread.h") or line:match("omp.h") then
-					libs = libs .. " -pthread -fopenmp"
-				end
-				if line:match("ncurses.h") then
-					libs = libs .. " -lncurses"
-				end
-				if line:match("openssl") then
-					libs = libs .. " -lssl -lcrypto"
-				end
-				if line:match("GL/glut.h") then
-					libs = libs .. " -lglut -lGL -lGLU"
-				end
-			end
-			cmd = compiler .. " " .. flags .. " " .. src_files .. " -o " .. name .. " " .. libs .. " && ./" .. name
+		-- If the absolute path contains "/tests/", isolate and run the test recipe
+		if string.match(absolute_path, "/tests/") then
+			print("Compiling and Running Test via Makefile...")
+			cmd = "cd " .. project_root .. " && make test TEST_FILE=" .. absolute_path
+		else
+			-- Otherwise, run the main project
+			print("Compiling and Running Main Game via Makefile...")
+			cmd = "cd " .. project_root .. " && make run"
 		end
-		print("Running: " .. cmd)
+
 		vim.cmd("split | term " .. cmd)
-	else
-		print("Unknown file type: " .. ext)
+		return
 	end
-end, { desc = "Compiler: Run Code (Smart Detect)" })
+
+	-- PRIORITY 2: Universal Single-File Fallbacks
+	-- If no Makefile is found, assume this is a standalone script
+	if ext == "py" then
+		vim.cmd("split | term python3 " .. absolute_path)
+	elseif ext == "lua" then
+		vim.cmd("split | term lua " .. absolute_path)
+	elseif ext == "sh" then
+		vim.cmd("split | term bash " .. absolute_path)
+	elseif ext == "cpp" or ext == "c" then
+		-- Fallback for quick, isolated C/C++ tests outside of a main project folder
+		local compiler = (ext == "cpp") and "g++" or "gcc"
+		local std = (ext == "cpp") and "-std=c++17" or "-std=c11"
+		local flags = _G.current_optimization_level .. " -Wall -Wextra " .. std
+		local cmd = compiler .. " " .. flags .. " " .. absolute_path .. " -o " .. name .. " && " .. name
+
+		print("Compiling isolated single file: " .. compiler)
+		vim.cmd("split | term " .. cmd)
+	elseif ext == "sql" then
+		vim.notify("Use <leader>db to open Dadbod UI, or execute via Python.", vim.log.levels.INFO)
+	else
+		print("No run logic defined for file type: " .. ext)
+	end
+end, { desc = "Compiler: Smart Run Code" })

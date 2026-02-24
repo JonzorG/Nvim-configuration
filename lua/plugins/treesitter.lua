@@ -9,7 +9,7 @@ return {
 			ensure_installed = { "c", "cpp", "python", "lua", "vim", "vimdoc", "query", "sql" },
 			sync_install = false,
 			highlight = { enable = true },
-			indent = { enable = true },
+			indent = { enable = true, disable = { "c", "cpp" } },
 		})
 	end,
 }

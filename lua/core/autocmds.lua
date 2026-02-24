@@ -55,3 +55,11 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		vim.api.nvim_buf_delete(0, {})
 	end,
 })
+
+-- DISABLE AUTO-COMMENTS: Stop newline continuation of comments
+vim.api.nvim_create_autocmd("BufEnter", {
+	pattern = "*",
+	callback = function()
+		vim.opt.formatoptions:remove({ "c", "r", "o" })
+	end,
+})

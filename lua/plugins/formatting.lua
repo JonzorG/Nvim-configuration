@@ -9,6 +9,11 @@ return {
 				lua = { "stylua" },
 				python = { "isort", "black" },
 			},
+			formatters = {
+				black = {
+					prepend_args = { "--line-length", "120" },
+				},
+			},
 			format_on_save = {
 				lsp_fallback = true,
 				async = false,

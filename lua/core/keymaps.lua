@@ -23,6 +23,7 @@ map("n", "<leader>sc", function()
 	vim.wo.spell = not vim.wo.spell
 	vim.notify("Spell Check: " .. (vim.wo.spell and "On" or "Off"))
 end, { desc = "Toggle Spell Check" })
+vim.keymap.set("n", "<leader>p", 'ggVG"+p', { noremap = true, desc = "Replace all with clipboard" })
 
 -- ==========================================================
 -- 🔍 TELESCOPE & SEARCH

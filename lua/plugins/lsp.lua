@@ -31,7 +31,6 @@ return {
 				ensure_installed = { "clangd", "pyright", "lua_ls", "sqls" },
 			})
 
-			-- LSP Keybinds
 			local opts = { noremap = true, silent = true }
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)

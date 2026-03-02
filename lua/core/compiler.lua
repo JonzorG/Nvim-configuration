@@ -1,9 +1,11 @@
+-- [FILE START: ./lua/core/compiler.lua] --
 -- ==========================================================
 -- ⚙️ CUSTOM COMPILER & CODE EXECUTION
 -- ==========================================================
 local map = vim.keymap.set
 
-_G.current_optimization_level = "-O3"
+-- Changed default to -O2 to strictly match lab specifications
+_G.current_optimization_level = "-O2"
 
 -- Toggle Optimization (-O2 for debugging, -O3 for heavy simulations)
 map("n", "<leader>o", function()

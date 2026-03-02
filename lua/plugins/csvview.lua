@@ -5,7 +5,6 @@ return {
 	opts = {
 		parser = { comments = { "#", "//" } },
 		view = {
-			-- Changes display from "align" (padding) to "border" (Excel-like grid)
 			display_mode = "border",
 		},
 		keymaps = {

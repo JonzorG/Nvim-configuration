@@ -30,11 +30,15 @@ return {
 			require("mason-lspconfig").setup({
 				ensure_installed = { "clangd", "pyright", "lua_ls", "sqls" },
 			})
-
-			local opts = { noremap = true, silent = true }
-			vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-			vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+			vim.api.nvim_create_autocmd("LspAttach", {
+				desc = "LSP actions",
+				callback = function(event)
+					local opts = { buffer = event.buf, noremap = true, silent = true }
+					vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+					vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+					vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
+				end,
+			})
 		end,
 	},
 }

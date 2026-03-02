@@ -82,3 +82,11 @@ map("n", "[t", function()
 	require("todo-comments").jump_prev()
 end, { desc = "Jump to Previous TODO" })
 map("n", "<leader>st", "<cmd>TodoTelescope<cr>", { desc = "Search: TODO Comments" })
+
+-- ==========================================================
+-- 🚫 HARD MODE: Disable Arrow Keys
+-- ==========================================================
+map({ "n", "i", "v" }, "<Up>", "<Nop>", { desc = "Disable Up Arrow" })
+map({ "n", "i", "v" }, "<Down>", "<Nop>", { desc = "Disable Down Arrow" })
+map({ "n", "i", "v" }, "<Left>", "<Nop>", { desc = "Disable Left Arrow" })
+map({ "n", "i", "v" }, "<Right>", "<Nop>", { desc = "Disable Right Arrow" })

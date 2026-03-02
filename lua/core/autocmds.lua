@@ -49,10 +49,15 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 vim.api.nvim_create_autocmd("BufEnter", {
 	pattern = { "*.png", "*.jpg", "*.jpeg", "*.pdf", "*.gif" },
-	callback = function()
-		local file = vim.fn.expand("%")
-		vim.fn.jobstart({ "xdg-open", file }, { detach = true })
-		vim.api.nvim_buf_delete(0, {})
+	callback = function(args)
+		local file = vim.api.nvim_buf_get_name(args.buf)
+		vim.ui.open(file)
+
+		vim.schedule(function()
+			if vim.api.nvim_buf_is_valid(args.buf) then
+				vim.api.nvim_buf_delete(args.buf, { force = true })
+			end
+		end)
 	end,
 })
 

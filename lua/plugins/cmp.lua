@@ -11,6 +11,11 @@ return {
 		local cmp = require("cmp")
 		local luasnip = require("luasnip")
 
+		luasnip.setup({
+			region_check_events = "CursorMoved,CursorMovedI",
+			delete_check_events = "TextChanged,TextChangedI",
+		})
+
 		require("luasnip.loaders.from_vscode").lazy_load()
 
 		cmp.setup({

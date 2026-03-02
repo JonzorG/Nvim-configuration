@@ -56,7 +56,6 @@ return {
 		dashboard.section.footer.val = {}
 
 		require("alpha").setup(dashboard.config)
-		require("alpha").setup(dashboard.config)
 
 		vim.api.nvim_create_autocmd("FileType", {
 			pattern = "alpha",

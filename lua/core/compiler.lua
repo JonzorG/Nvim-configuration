@@ -39,17 +39,11 @@ map("n", "<leader>r", function()
 	local make_file = vim.fs.find("Makefile", { upward = true, path = vim.fn.expand("%:p:h") })[1]
 	if make_file then
 		local project_root = vim.fn.fnamemodify(make_file, ":h")
-		local cmd = ""
+		local file_name_no_ext = vim.fn.expand("%:t:r") -- Gets just the file name without extension
 
-		-- If the absolute path contains "/tests/", isolate and run the test recipe
-		if string.match(absolute_path, "/tests/") then
-			print("Compiling and Running Test via Makefile...")
-			cmd = "cd " .. project_root .. " && make test TEST_FILE=" .. absolute_path
-		else
-			-- Otherwise, run the main project
-			print("Compiling and Running Main Game via Makefile...")
-			cmd = "cd " .. project_root .. " && make run"
-		end
+		print("Compiling and Running via Makefile...")
+		-- Pass the current file name to the 'run' target in the Makefile
+		local cmd = "cd " .. project_root .. " && make run FILE=" .. file_name_no_ext
 
 		vim.cmd("split | term " .. cmd)
 		return
@@ -67,7 +61,7 @@ map("n", "<leader>r", function()
 		-- Fallback for quick, isolated C/C++ tests outside of a main project folder
 		local compiler = (ext == "cpp") and "g++" or "gcc"
 		local std = (ext == "cpp") and "-std=c++17" or "-std=c11"
-		local flags = _G.current_optimization_level .. " -Wall -Wextra " .. std
+		local flags = _G.current_optimization_level .. " -Wall -Wextra " .. std .. " -lpthread -lrt"
 		local cmd = compiler .. " " .. flags .. " " .. absolute_path .. " -o " .. name .. " && " .. name
 
 		print("Compiling isolated single file: " .. compiler)

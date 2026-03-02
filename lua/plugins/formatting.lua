@@ -8,6 +8,8 @@ return {
 			formatters_by_ft = {
 				lua = { "stylua" },
 				python = { "isort", "black" },
+				c = { "clang-format" },
+				cpp = { "clang-format" },
 			},
 			formatters = {
 				black = {

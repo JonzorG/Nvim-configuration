@@ -5,5 +5,4 @@ Debugger
 Better terminal for code in nvim.
 
 2026-03-02
-Gemini chat flash
 Gemini chat excel

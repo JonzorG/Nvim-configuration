@@ -68,3 +68,16 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		vim.opt.formatoptions:remove({ "c", "r", "o" })
 	end,
 })
+
+local csv_group = vim.api.nvim_create_augroup("UserCsvView", { clear = true })
+
+vim.api.nvim_create_autocmd("FileType", {
+	group = csv_group,
+	pattern = { "csv", "tsv" },
+	callback = function()
+		pcall(function()
+			vim.cmd("CsvViewEnable")
+		end)
+	end,
+	desc = "Automatically enable csvview.nvim for spreadsheet files",
+})

@@ -72,6 +72,8 @@ map("n", "<leader>th", function()
 	require("telescope.builtin").colorscheme({ enable_preview = true })
 end, { desc = "UI: Switch Theme (Live Preview)" })
 
+map("n", "<leader>tc", "<cmd>CsvViewToggle<CR>", { desc = "Toggle CSV View" })
+
 -- ==========================================================
 -- 📌 TODO COMMENTS
 -- ==========================================================

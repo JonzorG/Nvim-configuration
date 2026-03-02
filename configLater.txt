@@ -1,2 +1,4 @@
-2026-02-16
-Debugger
+2026-03-02
+fix light (f11)
+Remap debugging into f buttons.
+Breakpoints icon

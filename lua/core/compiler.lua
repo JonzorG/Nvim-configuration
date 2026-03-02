@@ -4,8 +4,15 @@
 -- ==========================================================
 local map = vim.keymap.set
 
--- Changed default to -O2 to strictly match lab specifications
 _G.current_optimization_level = "-O2"
+_G.compiler_debug_mode = false
+
+-- Toggle Debug Compilation (-g -O0)
+map("n", "<leader>cd", function()
+	_G.compiler_debug_mode = not _G.compiler_debug_mode
+	local status = _G.compiler_debug_mode and "ON (-g -O0)" or "OFF (" .. _G.current_optimization_level .. ")"
+	print("Debug Compilation: " .. status)
+end, { desc = "Compiler: Toggle Debug Mode (-g -O0)" })
 
 -- Toggle Optimization (-O2 for debugging, -O3 for heavy simulations)
 map("n", "<leader>o", function()
@@ -37,22 +44,18 @@ map("n", "<leader>r", function()
 	local ext = vim.fn.expand("%:e")
 
 	-- PRIORITY 1: Smart Project Detection (Makefile)
-	-- Searches upwards from the current file's directory to find a Makefile
 	local make_file = vim.fs.find("Makefile", { upward = true, path = vim.fn.expand("%:p:h") })[1]
 	if make_file then
 		local project_root = vim.fn.fnamemodify(make_file, ":h")
-		local file_name_no_ext = vim.fn.expand("%:t:r") -- Gets just the file name without extension
+		local file_name_no_ext = vim.fn.expand("%:t:r")
 
 		print("Compiling and Running via Makefile...")
-		-- Pass the current file name to the 'run' target in the Makefile
 		local cmd = "cd " .. project_root .. " && make run FILE=" .. file_name_no_ext
-
 		vim.cmd("split | term " .. cmd)
 		return
 	end
 
 	-- PRIORITY 2: Universal Single-File Fallbacks
-	-- If no Makefile is found, assume this is a standalone script
 	if ext == "py" then
 		vim.cmd("split | term python3 " .. absolute_path)
 	elseif ext == "lua" then
@@ -60,13 +63,16 @@ map("n", "<leader>r", function()
 	elseif ext == "sh" then
 		vim.cmd("split | term bash " .. absolute_path)
 	elseif ext == "cpp" or ext == "c" then
-		-- Fallback for quick, isolated C/C++ tests outside of a main project folder
 		local compiler = (ext == "cpp") and "g++" or "gcc"
 		local std = (ext == "cpp") and "-std=c++17" or "-std=c11"
-		local flags = _G.current_optimization_level .. " -Wall -Wextra " .. std .. " -lpthread -lrt"
+
+		-- Inject debug flags if debug mode is active
+		local opt_flags = _G.compiler_debug_mode and "-g -O0" or _G.current_optimization_level
+		local flags = opt_flags .. " -Wall -Wextra " .. std .. " -lpthread -lrt"
+
 		local cmd = compiler .. " " .. flags .. " " .. absolute_path .. " -o " .. name .. " && " .. name
 
-		print("Compiling isolated single file: " .. compiler)
+		print("Compiling isolated single file: " .. compiler .. " " .. opt_flags)
 		vim.cmd("split | term " .. cmd)
 	elseif ext == "sql" then
 		vim.notify("Use <leader>db to open Dadbod UI, or execute via Python.", vim.log.levels.INFO)

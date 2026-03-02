@@ -1,4 +1,3 @@
 2026-03-02
 fix light (f11)
-Remap debugging into f buttons.
-Breakpoints icon
+lock fn key

@@ -20,6 +20,14 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 		vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ffffff", bold = true })
 
 		vim.api.nvim_set_hl(0, "Folded", { bg = "NONE", fg = "#565f89", italic = true })
+
+		-- TREESITTER CONTEXT FIXES
+		-- Remove the "flashlight" background by setting bg = "NONE"
+		vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "NONE" })
+		-- Match context line numbers to your orange "LineNrAbove" color
+		vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", { fg = "#E0AF68", bg = "NONE", bold = true })
+		-- Add a subtle underline to separate the sticky context from the rest of the code
+		vim.api.nvim_set_hl(0, "TreesitterContextBottom", { sp = "#565f89", underline = true })
 	end,
 })
 

@@ -1,3 +1,6 @@
 2026-03-02
 fix light (f11)
 lock fn key
+
+2026-03-03
+Add the length of a row in c and c++ to be longer. (formatting)

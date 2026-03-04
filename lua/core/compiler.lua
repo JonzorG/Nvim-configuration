@@ -27,9 +27,23 @@ map("n", "<leader>b", function()
 
 	if project_root then
 		vim.notify("Building via Makefile...", vim.log.levels.INFO)
-		-- Change to the Makefile directory, run make, and populate the Quickfix list
 		vim.cmd("cd " .. project_root .. " | make")
-		vim.cmd("cwindow") -- Automatically open the quickfix window if there are errors
+
+		local qf_list = vim.fn.getqflist()
+		if not vim.tbl_isempty(qf_list) then
+			local has_trouble, _ = pcall(require, "trouble")
+			if has_trouble then
+				vim.cmd("Trouble qflist open")
+			else
+				vim.cmd("cwindow")
+			end
+		else
+			vim.notify("Build Successful!", vim.log.levels.INFO)
+			pcall(function()
+				vim.cmd("Trouble qflist close")
+			end)
+			vim.cmd("cclose")
+		end
 	else
 		vim.notify("ERROR: No Makefile found in directory tree!", vim.log.levels.ERROR)
 	end

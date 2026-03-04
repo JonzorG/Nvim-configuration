@@ -26,22 +26,42 @@ map("n", "<leader>b", function()
 	local project_root = get_makefile_dir()
 
 	if project_root then
-		vim.notify("Building via Makefile...", vim.log.levels.INFO)
-		vim.cmd("cd " .. project_root .. " | make")
+		vim.cmd("silent make -C " .. vim.fn.fnameescape(project_root))
 
 		local qf_list = vim.fn.getqflist()
-		if not vim.tbl_isempty(qf_list) then
-			local has_trouble, _ = pcall(require, "trouble")
+		local has_errors = false
+		local build_output = {}
+
+		for _, item in ipairs(qf_list) do
+			if item.valid == 1 then
+				has_errors = true
+			elseif item.text and item.text:match("%S") then
+				if not item.text:match("make%[%d+%]:") then
+					table.insert(build_output, item.text)
+				end
+			end
+		end
+
+		local has_trouble, trouble = pcall(require, "trouble")
+		if has_errors then
+			vim.notify("Build failed! Check Trouble/Quickfix.", vim.log.levels.ERROR)
 			if has_trouble then
-				vim.cmd("Trouble qflist open")
+				trouble.open("qflist")
 			else
 				vim.cmd("cwindow")
 			end
 		else
-			vim.notify("Build Successful!", vim.log.levels.INFO)
-			pcall(function()
-				vim.cmd("Trouble qflist close")
-			end)
+			-- Join the make output lines together
+			local out_str = table.concat(build_output, "\n")
+			if out_str == "" then
+				out_str = "Nothing to be done for 'all'."
+			end
+
+			vim.notify("" .. out_str .. "", vim.log.levels.INFO)
+
+			if has_trouble then
+				pcall(trouble.close, "qflist")
+			end
 			vim.cmd("cclose")
 		end
 	else

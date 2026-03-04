@@ -1,5 +1,4 @@
 2026-03-04
 DAP
-standing num white instead of grey
-fix needing to press enter if compiling correctly. <leader>b
-if I'm not in a repo and press <leader>lg then esc = N
+standing num white instead of gray
+any way to show runfiles later when searching for files? I want to move to myfile.c not myfile

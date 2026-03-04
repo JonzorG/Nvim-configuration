@@ -28,7 +28,25 @@ return {
 			"nvim-lua/plenary.nvim",
 		},
 		keys = {
-			{ "<leader>lg", "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
+			{
+				"<leader>lg",
+				function()
+					vim.fn.system("git rev-parse --is-inside-work-tree 2>/dev/null")
+					if vim.v.shell_error == 0 then
+						vim.cmd("LazyGit")
+					else
+						vim.ui.select({ "Yes", "No" }, {
+							prompt = "Not in a git repository. Initialize one?",
+						}, function(choice)
+							if choice == "Yes" then
+								vim.fn.system("git init")
+								vim.cmd("LazyGit")
+							end
+						end)
+					end
+				end,
+				desc = "Open LazyGit",
+			},
 			{ "<leader>gb", ":Gitsigns toggle_current_line_blame<CR>", desc = "Toggle Git Blame" },
 		},
 	},

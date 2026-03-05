@@ -56,7 +56,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 vim.api.nvim_create_autocmd("BufEnter", {
-	pattern = { "*.png", "*.jpg", "*.jpeg", "*.pdf", "*.gif" },
+	pattern = { "*.png", "*.jpg", "*.jpeg", "*.pdf", "*.gif", "*.pcapng", "*.docx", "*.epub", "*.svg", "*.fits" },
 	callback = function(args)
 		local file = vim.api.nvim_buf_get_name(args.buf)
 		vim.ui.open(file)

@@ -3,14 +3,14 @@ return {
 	version = "*",
 	opts = {
 		size = 15,
-		open_mapping = [[<c-\>]], -- The standard hotkey to toggle the terminal
+		open_mapping = [[<c-\>]],
 		hide_numbers = true,
 		shade_terminals = true,
 		shading_factor = 2,
 		start_in_insert = true,
 		insert_mappings = true,
 		persist_size = true,
-		direction = "float", -- Default to floating terminal for an IDE-like feel
+		direction = "float",
 		close_on_exit = true,
 		shell = vim.o.shell,
 		float_opts = {

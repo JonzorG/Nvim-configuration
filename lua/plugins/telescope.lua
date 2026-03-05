@@ -24,6 +24,16 @@ return {
 					"%.class",
 					"%.zip",
 					"%.tar",
+					"%.gz",
+					"%.so",
+					"%.pyc",
+					"%.npy",
+					"%.npz",
+					"%.pkl",
+					"%.ttf",
+					"%.afm",
+					"%.pack",
+					"%.rev",
 				},
 				layout_config = {
 					horizontal = { preview_width = 0.55 },
@@ -44,7 +54,6 @@ return {
 			},
 		})
 
-		-- Load the FZF extension into Telescope
 		telescope.load_extension("fzf")
 	end,
 }

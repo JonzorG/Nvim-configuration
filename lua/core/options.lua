@@ -5,6 +5,8 @@ vim.opt.mouse = "a"
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
+vim.opt.cursorline = true
+vim.opt.cursorlineopt = "number"
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4

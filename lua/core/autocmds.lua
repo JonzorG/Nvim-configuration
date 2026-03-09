@@ -94,10 +94,12 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank({ higroup = "WhiteYank", timeout = 100 })
 
 		local reg = vim.v.event.regname
-		if reg == "+" or reg == "*" then
-			vim.notify("Copied to system clipboard", vim.log.levels.INFO, { title = "Clipboard" })
-		elseif reg == "" or reg == '"' then
-			vim.notify("Copied to Nvim clipboard", vim.log.levels.INFO, { title = "Clipboard" })
-		end
+		vim.schedule(function()
+			if reg == "+" or reg == "*" then
+				vim.notify("Copied to system clipboard", vim.log.levels.INFO, { title = "Clipboard" })
+			elseif reg == "" or reg == '"' then
+				vim.notify("Copied to Nvim clipboard", vim.log.levels.INFO, { title = "Clipboard" })
+			end
+		end)
 	end,
 })

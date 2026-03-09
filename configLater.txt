@@ -1,4 +1,6 @@
 2026-03-04
 DAP
-remove binary files from fuzzy finder.
-Add noice.nvim with changes
+
+2026-03-09
+Add noice.nvim with changes (maybe)
+Fix treesitter

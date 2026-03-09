@@ -37,7 +37,7 @@ return {
 		{
 			"<leader>sk",
 			function()
-				require("telescope.builtin").keymaps()
+				require("telescope.builtin").keymaps({ modes = { "n" } })
 			end,
 			desc = "Search: Keymap Definitions",
 		},

@@ -5,6 +5,87 @@ return {
 		"nvim-lua/plenary.nvim",
 		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 	},
+	keys = {
+		{
+			"<leader>ff",
+			function()
+				require("telescope.builtin").find_files()
+			end,
+			desc = "Search: Files in Root",
+		},
+		{
+			"<leader>fg",
+			function()
+				require("telescope.builtin").live_grep()
+			end,
+			desc = "Search: Text (Grep)",
+		},
+		{
+			"<leader>fb",
+			function()
+				require("telescope.builtin").buffers()
+			end,
+			desc = "Search: Open Buffers",
+		},
+		{
+			"<leader>sr",
+			function()
+				require("telescope.builtin").registers({ initial_mode = "normal" })
+			end,
+			desc = "Search: Registers",
+		},
+		{
+			"<leader>sk",
+			function()
+				require("telescope.builtin").keymaps()
+			end,
+			desc = "Search: Keymap Definitions",
+		},
+		{
+			"<leader>fc",
+			function()
+				require("telescope.builtin").find_files({ cwd = os.getenv("HOME") .. "/.config/nvim" })
+			end,
+			desc = "Search: Config Files",
+		},
+		{
+			"<leader>fr",
+			function()
+				require("telescope.builtin").find_files({ cwd = os.getenv("HOME") .. "/Documents" })
+			end,
+			desc = "Search: Documents",
+		},
+		{
+			"<leader>sd",
+			function()
+				require("telescope.builtin").diagnostics({ initial_mode = "normal" })
+			end,
+			desc = "Search: Diagnostics",
+		},
+		{
+			"<leader>ss",
+			function()
+				require("telescope.builtin").lsp_document_symbols()
+			end,
+			desc = "Search: Document Symbols",
+		},
+		{
+			"z=",
+			function()
+				require("telescope.builtin").spell_suggest(
+					require("telescope.themes").get_cursor({ initial_mode = "normal" })
+				)
+			end,
+			desc = "LSP: Spell Suggestions",
+		},
+		{
+			"<leader>th",
+			function()
+				require("telescope.builtin").colorscheme({ enable_preview = true })
+			end,
+			desc = "UI: Switch Theme",
+		},
+	},
 	config = function()
 		local telescope = require("telescope")
 		local actions = require("telescope.actions")

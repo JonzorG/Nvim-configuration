@@ -36,64 +36,10 @@ map("n", "<leader>sc", function()
 end, { desc = "Toggle Spell Check" })
 
 -- ==========================================================
--- 🔍 TELESCOPE & SEARCH
+-- 🛠️ NATIVE DIAGNOSTICS & EDITING
 -- ==========================================================
-local function tel(builtin)
-	return function()
-		require("telescope.builtin")[builtin]()
-	end
-end
-
--- Core Finders
-map("n", "<leader>ff", tel("find_files"), { desc = "Search: Files in Root" })
-map("n", "<leader>fg", tel("live_grep"), { desc = "Search: Text (Grep)" })
-map("n", "<leader>fb", tel("buffers"), { desc = "Search: Open Buffers" })
-map("n", "<leader>sr", function()
-	require("telescope.builtin").registers({ initial_mode = "normal" })
-end, { desc = "Search: Registers" })
-map("n", "<leader>sk", tel("keymaps"), { desc = "Search: Keymap Definitions" })
-
--- Custom Paths
-map("n", "<leader>fc", function()
-	require("telescope.builtin").find_files({ cwd = os.getenv("HOME") .. "/.config/nvim" })
-end, { desc = "Search: Neovim Config Files" })
-map("n", "<leader>fr", function()
-	require("telescope.builtin").find_files({ cwd = os.getenv("HOME") .. "/Documents" })
-end, { desc = "Search: Documents Directory" })
-
--- ==========================================================
--- 🛠️ LSP & DIAGNOSTICS
--- ==========================================================
-map("n", "<leader>d", vim.diagnostic.open_float, { desc = "LSP: Show Line Diagnostics" })
-map("n", "<leader>sd", function()
-	require("telescope.builtin").diagnostics({ initial_mode = "normal" })
-end, { desc = "Search: Diagnostics" })
-map("n", "<leader>ss", tel("lsp_document_symbols"), { desc = "Search: Document Symbols" })
-map("n", "z=", function()
-	require("telescope.builtin").spell_suggest(require("telescope.themes").get_cursor({ initial_mode = "normal" }))
-end, { desc = "LSP: Spell Suggestions (Cursor)" })
+map("n", "<leader>d", vim.diagnostic.open_float, { desc = "Diagnostics: Show Line" })
 map("n", "<F2>", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "LSP: Rename Symbol Globally" })
-
--- ==========================================================
--- 🎨 UI & TOOLS
--- ==========================================================
-map("n", "<leader>db", "<cmd>DBUIToggle<CR>", { desc = "Tool: Toggle Database UI" })
-map("n", "<leader>th", function()
-	require("telescope.builtin").colorscheme({ enable_preview = true })
-end, { desc = "UI: Switch Theme (Live Preview)" })
-
-map("n", "<leader>tc", "<cmd>CsvViewToggle<CR>", { desc = "Toggle CSV View" })
-
--- ==========================================================
--- 📌 TODO COMMENTS
--- ==========================================================
-map("n", "]t", function()
-	require("todo-comments").jump_next()
-end, { desc = "Jump to Next TODO" })
-map("n", "[t", function()
-	require("todo-comments").jump_prev()
-end, { desc = "Jump to Previous TODO" })
-map("n", "<leader>st", "<cmd>TodoTelescope<cr>", { desc = "Search: TODO Comments" })
 
 -- ==========================================================
 -- 🚫 HARD MODE: Disable Arrow Keys

@@ -22,11 +22,8 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 		vim.api.nvim_set_hl(0, "Folded", { bg = "NONE", fg = "#565f89", italic = true })
 
 		-- TREESITTER CONTEXT FIXES
-		-- Remove the "flashlight" background by setting bg = "NONE"
 		vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "NONE" })
-		-- Match context line numbers to your orange "LineNrAbove" color
 		vim.api.nvim_set_hl(0, "TreesitterContextLineNumber", { fg = "#E0AF68", bg = "NONE", bold = true })
-		-- Add a subtle underline to separate the sticky context from the rest of the code
 		vim.api.nvim_set_hl(0, "TreesitterContextBottom", { sp = "#565f89", underline = true })
 	end,
 })
@@ -78,7 +75,6 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 local csv_group = vim.api.nvim_create_augroup("UserCsvView", { clear = true })
-
 vim.api.nvim_create_autocmd("FileType", {
 	group = csv_group,
 	pattern = { "csv", "tsv" },
@@ -88,4 +84,20 @@ vim.api.nvim_create_autocmd("FileType", {
 		end)
 	end,
 	desc = "Automatically enable csvview.nvim for spreadsheet files",
+})
+
+-- HIGHLIGHT YANK & CLIPBOARD NOTIFICATION
+vim.api.nvim_create_autocmd("TextYankPost", {
+	group = vim.api.nvim_create_augroup("HighlightYank", { clear = true }),
+	callback = function()
+		vim.api.nvim_set_hl(0, "WhiteYank", { bg = "#ffffff", fg = "#000000", bold = true })
+		vim.highlight.on_yank({ higroup = "WhiteYank", timeout = 100 })
+
+		local reg = vim.v.event.regname
+		if reg == "+" or reg == "*" then
+			vim.notify("Copied to system clipboard", vim.log.levels.INFO, { title = "Clipboard" })
+		elseif reg == "" or reg == '"' then
+			vim.notify("Copied to Nvim clipboard", vim.log.levels.INFO, { title = "Clipboard" })
+		end
+	end,
 })

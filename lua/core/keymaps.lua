@@ -5,6 +5,7 @@ local map = vim.keymap.set
 -- ==========================================================
 map("n", "<C-j>", "<C-e>", { desc = "Window: Scroll Down" })
 map("n", "<C-k>", "<C-y>", { desc = "Window: Scroll Up" })
+map("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
 
 -- ==========================================================
 -- 📝 TEXT MANIPULATION

@@ -7,7 +7,3 @@ Fix treesitter
 
 2026-03-11
 Fix colors in code
-
-2026-03-12
-spell check Swedish, change between them. 
-Spell checking list. 

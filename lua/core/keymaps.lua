@@ -36,6 +36,23 @@ map("n", "<leader>sc", function()
 	vim.notify("Spell Check: " .. (vim.wo.spell and "On" or "Off"))
 end, { desc = "Toggle Spell Check" })
 
+map("n", "<leader>sl", function()
+	local current = vim.bo.spelllang
+	local new_lang = (current == "en_us") and "sv" or "en_us"
+	vim.bo.spelllang = new_lang
+	vim.notify("Spell Lang: " .. string.upper(new_lang), vim.log.levels.INFO)
+end, { desc = "Toggle Spell Language (EN/SV)" })
+
+map("n", "<leader>sn", function()
+	vim.cmd("normal! ]s")
+	require("telescope.builtin").spell_suggest(require("telescope.themes").get_cursor({ initial_mode = "normal" }))
+end, { desc = "Spelling: Jump to next & suggest" })
+
+map("n", "<leader>sp", function()
+	vim.cmd("normal! [s")
+	require("telescope.builtin").spell_suggest(require("telescope.themes").get_cursor({ initial_mode = "normal" }))
+end, { desc = "Spelling: Jump to prev & suggest" })
+
 -- ==========================================================
 -- 🛠️ NATIVE DIAGNOSTICS & EDITING
 -- ==========================================================

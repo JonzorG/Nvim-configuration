@@ -92,7 +92,9 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function()
 		vim.api.nvim_set_hl(0, "WhiteYank", { bg = "#ffffff", fg = "#000000", bold = true })
 		vim.highlight.on_yank({ higroup = "WhiteYank", timeout = 100 })
-
+		if vim.v.event.operator ~= "y" then
+			return
+		end
 		local reg = vim.v.event.regname
 		vim.schedule(function()
 			if reg == "+" or reg == "*" then

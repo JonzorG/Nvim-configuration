@@ -38,10 +38,17 @@ end, { desc = "Toggle Spell Check" })
 
 map("n", "<leader>sl", function()
 	local current = vim.bo.spelllang
-	local new_lang = (current == "en_us") and "sv" or "en_us"
+	local new_lang = "en_us"
+
+	if current == "en_us" then
+		new_lang = "sv"
+	elseif current == "sv" then
+		new_lang = "en_us,sv"
+	end
+
 	vim.bo.spelllang = new_lang
 	vim.notify("Spell Lang: " .. string.upper(new_lang), vim.log.levels.INFO)
-end, { desc = "Toggle Spell Language (EN/SV)" })
+end, { desc = "Cycle Spell Language (EN -> SV -> Both)" })
 
 local function spell_jump_and_suggest(direction)
 	-- 1. Jump to the word and perfectly center the screen

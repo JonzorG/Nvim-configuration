@@ -19,3 +19,7 @@ AST
 pid
 args
 DAP
+TCP
+UDP
+ipconfig
+switchen

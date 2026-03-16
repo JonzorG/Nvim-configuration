@@ -2,8 +2,4 @@
 DAP
 
 2026-03-09
-Add noice.nvim with changes (maybe)
 Fix treesitter
-
-2026-03-11
-Fix colors in code

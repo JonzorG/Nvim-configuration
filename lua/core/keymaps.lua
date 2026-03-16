@@ -33,22 +33,22 @@ map("n", "<leader>P", 'ggVG"+p', { noremap = true, desc = "Replace all with clip
 -- Spelling
 map("n", "<leader>sc", function()
 	vim.wo.spell = not vim.wo.spell
-	vim.notify("Spell Check: " .. (vim.wo.spell and "On" or "Off"))
 end, { desc = "Toggle Spell Check" })
 
 map("n", "<leader>sl", function()
 	local current = vim.bo.spelllang
-	local new_lang = "en_us"
+	local new_lang = "en_us,sv"
 
-	if current == "en_us" then
+	if current == "en_us,sv" then
+		new_lang = "en_us"
+	elseif current == "en_us" then
 		new_lang = "sv"
 	elseif current == "sv" then
 		new_lang = "en_us,sv"
 	end
 
 	vim.bo.spelllang = new_lang
-	vim.notify("Spell Lang: " .. string.upper(new_lang), vim.log.levels.INFO)
-end, { desc = "Cycle Spell Language (EN -> SV -> Both)" })
+end, { desc = "Cycle Spell Language (Mixed -> EN -> SV)" })
 
 local function spell_jump_and_suggest(direction)
 	-- 1. Jump to the word and perfectly center the screen

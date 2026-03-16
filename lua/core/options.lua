@@ -30,3 +30,14 @@ vim.diagnostic.config({
 	severity_sort = true,
 	float = { border = "rounded" },
 })
+
+-- ==========================================
+-- PROVIDER OPTIMIZATIONS
+-- ==========================================
+-- Disable unused providers to avoid overhead and healthcheck warnings
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_node_provider = 0
+
+-- Explicitly set python3 host to bypass runtime search
+vim.g.python3_host_prog = "/usr/bin/python3"

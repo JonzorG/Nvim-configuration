@@ -8,6 +8,13 @@ map("n", "<C-k>", "<C-y>", { desc = "Window: Scroll Up" })
 map("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
 
 -- ==========================================================
+-- 🪟 SPLIT MANAGEMENT
+-- ==========================================================
+map("n", "<leader>wv", "<C-w>v", { desc = "Split Window Vertically" })
+map("n", "<leader>wh", "<C-w>s", { desc = "Split Window Horizontally" })
+map("n", "<leader>wr", "<C-w>=", { desc = "Make Splits Equal Size" })
+
+-- ==========================================================
 -- 📝 TEXT MANIPULATION
 -- ==========================================================
 -- Move Lines (Alt + j/k)

@@ -7,6 +7,12 @@ map("n", "<C-j>", "<C-e>", { desc = "Window: Scroll Down" })
 map("n", "<C-k>", "<C-y>", { desc = "Window: Scroll Up" })
 map("t", "<Esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
 
+-- Window Navigation via Arrow Keys
+map("n", "<Up>", "<C-w>k", { desc = "Window: Focus Up" })
+map("n", "<Down>", "<C-w>j", { desc = "Window: Focus Down" })
+map("n", "<Left>", "<C-w>h", { desc = "Window: Focus Left" })
+map("n", "<Right>", "<C-w>l", { desc = "Window: Focus Right" })
+
 -- ==========================================================
 -- 🪟 SPLIT MANAGEMENT
 -- ==========================================================
@@ -102,9 +108,9 @@ map("n", "<leader>d", vim.diagnostic.open_float, { desc = "Diagnostics: Show Lin
 map("n", "<F2>", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "LSP: Rename Symbol Globally" })
 
 -- ==========================================================
--- 🚫 HARD MODE: Disable Arrow Keys
+-- 🚫 HARD MODE: Disable Arrow Keys (Insert/Visual Only)
 -- ==========================================================
-map({ "n", "i", "v" }, "<Up>", "<Nop>", { desc = "Disable Up Arrow" })
-map({ "n", "i", "v" }, "<Down>", "<Nop>", { desc = "Disable Down Arrow" })
-map({ "n", "i", "v" }, "<Left>", "<Nop>", { desc = "Disable Left Arrow" })
-map({ "n", "i", "v" }, "<Right>", "<Nop>", { desc = "Disable Right Arrow" })
+map({ "i", "v" }, "<Up>", "<Nop>", { desc = "Disable Up Arrow" })
+map({ "i", "v" }, "<Down>", "<Nop>", { desc = "Disable Down Arrow" })
+map({ "i", "v" }, "<Left>", "<Nop>", { desc = "Disable Left Arrow" })
+map({ "i", "v" }, "<Right>", "<Nop>", { desc = "Disable Right Arrow" })

@@ -15,6 +15,9 @@ return {
 				black = {
 					prepend_args = { "--line-length", "120" },
 				},
+				["clang-format"] = {
+					prepend_args = { "-fallback-style=Google" },
+				},
 			},
 			format_on_save = {
 				lsp_fallback = true,

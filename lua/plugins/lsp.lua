@@ -30,6 +30,10 @@ return {
 			require("mason-lspconfig").setup({
 				ensure_installed = { "clangd", "pyright", "lua_ls", "sqls" },
 			})
+			vim.lsp.config("clangd", {
+				filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+			})
+			vim.lsp.enable("clangd")
 			vim.api.nvim_create_autocmd("LspAttach", {
 				desc = "LSP actions",
 				callback = function(event)

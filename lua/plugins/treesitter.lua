@@ -9,6 +9,7 @@ return {
 			ensure_installed = {
 				"c",
 				"cpp",
+				"cuda",
 				"python",
 				"lua",
 				"sql",

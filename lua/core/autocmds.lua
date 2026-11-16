@@ -105,3 +105,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		end)
 	end,
 })
+
+vim.filetype.add({
+	extension = {
+		cu = "cuda",
+		cuh = "cuda",
+	},
+})

@@ -28,6 +28,7 @@ map("n", "<A-j>", ":m .+1<CR>==", { desc = "Move Line Down", silent = true })
 map("n", "<A-k>", ":m .-2<CR>==", { desc = "Move Line Up", silent = true })
 map("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { desc = "Move Line Down (Insert)", silent = true })
 map("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { desc = "Move Line Up (Insert)", silent = true })
+map({ "i", "n" }, ";;", "<Esc>A;", { desc = "Append semicolon to EOL", silent = true })
 map("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move Block Down (Visual)", silent = true })
 map("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move Block Up (Visual)", silent = true })
 

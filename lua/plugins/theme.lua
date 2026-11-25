@@ -7,6 +7,4 @@ return {
 			vim.cmd.colorscheme("tokyonight-night")
 		end,
 	},
-	{ "catppuccin/nvim", name = "catppuccin", lazy = true },
-	{ "rebelot/kanagawa.nvim", lazy = true },
 }

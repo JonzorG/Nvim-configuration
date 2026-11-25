@@ -78,13 +78,6 @@ return {
 			end,
 			desc = "LSP: Spell Suggestions",
 		},
-		{
-			"<leader>th",
-			function()
-				require("telescope.builtin").colorscheme({ enable_preview = true })
-			end,
-			desc = "UI: Switch Theme",
-		},
 	},
 	config = function()
 		local telescope = require("telescope")

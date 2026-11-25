@@ -12,7 +12,6 @@ return {
 				"cuda",
 				"python",
 				"lua",
-				"sql",
 				"bash",
 				"vim",
 				"vimdoc",

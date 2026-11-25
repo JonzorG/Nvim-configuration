@@ -15,7 +15,6 @@ return {
 					"isort",
 					"black",
 					"stylua",
-					"pylint",
 				},
 			})
 		end,
@@ -28,7 +27,7 @@ return {
 		},
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "clangd", "pyright", "lua_ls", "sqls" },
+				ensure_installed = { "clangd", "pyright", "lua_ls" },
 			})
 			vim.lsp.config("clangd", {
 				filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },

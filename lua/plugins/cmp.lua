@@ -4,8 +4,6 @@ return {
 		"hrsh7th/cmp-nvim-lsp",
 		{ "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
 		"saadparwaiz1/cmp_luasnip",
-		"rafamadriz/friendly-snippets",
-		"kristijanhusak/vim-dadbod-completion",
 	},
 	config = function()
 		local cmp = require("cmp")
@@ -15,8 +13,6 @@ return {
 			region_check_events = "CursorMoved,CursorMovedI",
 			delete_check_events = "TextChanged,TextChangedI",
 		})
-
-		require("luasnip.loaders.from_vscode").lazy_load()
 
 		cmp.setup({
 			snippet = {
@@ -61,9 +57,6 @@ return {
 			sources = cmp.config.sources({
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
-				{ name = "vim-dadbod-completion" },
-			}, {
-				{ name = "buffer" },
 			}),
 		})
 	end,

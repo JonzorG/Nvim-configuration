@@ -109,6 +109,18 @@ map("n", "<leader>d", vim.diagnostic.open_float, { desc = "Diagnostics: Show Lin
 map("n", "<F2>", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "LSP: Rename Symbol Globally" })
 
 -- ==========================================================
+-- 📁 FOLDING (Searchable via <leader>sk)
+-- ==========================================================
+map("n", "zR", "zR", { desc = "Fold: Open all folds" })
+map("n", "zM", "zM", { desc = "Fold: Close all folds" })
+map("n", "zc", "zc", { desc = "Fold: Close current fold" })
+map("n", "zo", "zo", { desc = "Fold: Open current fold" })
+map("n", "za", "za", { desc = "Fold: Toggle current fold" })
+map("n", "zC", "zC", { desc = "Fold: Close folds recursively" })
+map("n", "zO", "zO", { desc = "Fold: Open folds recursively" })
+map("n", "zA", "zA", { desc = "Fold: Toggle folds recursively" })
+
+-- ==========================================================
 -- 🚫 HARD MODE: Disable Arrow Keys (Insert/Visual Only)
 -- ==========================================================
 map({ "i", "v" }, "<Up>", "<Nop>", { desc = "Disable Up Arrow" })

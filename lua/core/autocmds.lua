@@ -86,23 +86,12 @@ vim.api.nvim_create_autocmd("FileType", {
 	desc = "Automatically enable csvview.nvim for spreadsheet files",
 })
 
--- HIGHLIGHT YANK & CLIPBOARD NOTIFICATION
+-- HIGHLIGHT YANK
 vim.api.nvim_create_autocmd("TextYankPost", {
 	group = vim.api.nvim_create_augroup("HighlightYank", { clear = true }),
 	callback = function()
 		vim.api.nvim_set_hl(0, "WhiteYank", { bg = "#ffffff", fg = "#000000", bold = true })
 		vim.highlight.on_yank({ higroup = "WhiteYank", timeout = 100 })
-		if vim.v.event.operator ~= "y" then
-			return
-		end
-		local reg = vim.v.event.regname
-		vim.schedule(function()
-			if reg == "+" or reg == "*" then
-				vim.notify("Copied to system clipboard", vim.log.levels.INFO, { title = "Clipboard" })
-			elseif reg == "" or reg == '"' then
-				vim.notify("Copied to Nvim clipboard", vim.log.levels.INFO, { title = "Clipboard" })
-			end
-		end)
 	end,
 })
 

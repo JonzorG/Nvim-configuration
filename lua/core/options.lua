@@ -45,3 +45,14 @@ vim.g.loaded_node_provider = 0
 
 -- Explicitly set python3 host to bypass runtime search
 vim.g.python3_host_prog = "/usr/bin/python3"
+
+-- ==========================================
+-- NATIVE TREESITTER FOLDING
+-- ==========================================
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
+vim.opt.foldtext = ""
+vim.opt.fillchars:append({ fold = " " })
